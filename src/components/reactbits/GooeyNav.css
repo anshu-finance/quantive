@@ -1,0 +1,314 @@
+/* GooeyNav Colors - Luxury Navy + Gold palette */
+:root {
+    --color-1: #D4AF37;
+    --color-2: #F5E6C8;
+    --color-3: #A0A5AD;
+    --color-4: #E8E8E8;
+    --linear-ease: linear(0,
+            0.068,
+            0.19 2.7%,
+            0.804 8.1%,
+            1.037,
+            1.199 13.2%,
+            1.245,
+            1.27 15.8%,
+            1.274,
+            1.272 17.4%,
+            1.249 19.1%,
+            0.996 28%,
+            0.949,
+            0.928 33.3%,
+            0.926,
+            0.933 36.8%,
+            1.001 45.6%,
+            1.013,
+            1.019 50.8%,
+            1.018 54.4%,
+            1 63.1%,
+            0.995 68%,
+            1.001 85%,
+            1);
+}
+
+/* Fixed positioning for navigation */
+.gooey-nav-wrapper {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 0.5rem 1rem;
+    background: rgba(15, 21, 33, 0.05);
+    /* Reduced opacity */
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 100vw;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(212, 175, 55, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.gooey-nav-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 100vw;
+}
+
+.gooey-nav-container nav {
+    display: flex;
+    position: relative;
+    transform: translate3d(0, 0, 0.01px);
+}
+
+.gooey-nav-container nav ul {
+    display: flex;
+    gap: 1.5em;
+    list-style: none;
+    padding: 0 0.5em;
+    margin: 0;
+    position: relative;
+    z-index: 3;
+    color: #E8E8E8;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.gooey-nav-container nav ul li {
+    border-radius: 100vw;
+    position: relative;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+    box-shadow: 0 0 0.5px 1.5px transparent;
+    color: #A0A5AD;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.gooey-nav-container nav ul li a {
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.gooey-nav-container nav ul li:hover {
+    color: #D4AF37;
+}
+
+.gooey-nav-container nav ul li:focus-within:has(:focus-visible) {
+    box-shadow: 0 0 0.5px 1.5px #D4AF37;
+}
+
+.gooey-nav-container nav ul li::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 100vw;
+    background: linear-gradient(135deg, #D4AF37 0%, #F5E6C8 100%);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+    z-index: -1;
+}
+
+.gooey-nav-container nav ul li.active {
+    color: #0A0E17;
+    text-shadow: none;
+    font-weight: 600;
+}
+
+.gooey-nav-container nav ul li.active::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.gooey-nav-container .effect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    opacity: 1;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+}
+
+.gooey-nav-container .effect.text {
+    color: #A0A5AD;
+    transition: color 0.2s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.gooey-nav-container .effect.text.active {
+    color: #0A0E17;
+}
+
+.gooey-nav-container .effect.filter {
+    /* filter: blur(7px) contrast(100) blur(0); */
+    /* mix-blend-mode: lighten; */
+    opacity: 0.9;
+}
+
+.gooey-nav-container .effect.filter::before {
+    content: '';
+    position: absolute;
+    inset: -75px;
+    z-index: -2;
+    /* background: #0A0E17; */
+    background: transparent;
+}
+
+.gooey-nav-container .effect.filter::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #D4AF37 0%, #F5E6C8 100%);
+    transform: scale(0);
+    opacity: 0;
+    z-index: -1;
+    border-radius: 100vw;
+}
+
+.gooey-nav-container .effect.active::after {
+    animation: pill 0.2s ease both;
+}
+
+@keyframes pill {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.particle,
+.point {
+    display: block;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    transform-origin: center;
+}
+
+.particle {
+    --time: 5s;
+    position: absolute;
+    top: calc(50% - 8px);
+    left: calc(50% - 8px);
+    animation: particle calc(var(--time)) ease 1 -230ms;
+    /* 35% faster (was -350ms) */
+}
+
+.point {
+    background: var(--color);
+    opacity: 1;
+    animation: point calc(var(--time)) ease 1 -230ms;
+    /* 35% faster */
+}
+
+@keyframes particle {
+    0% {
+        transform: rotate(0deg) translate(calc(var(--start-x)), calc(var(--start-y)));
+        opacity: 1;
+        animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+    }
+
+    70% {
+        transform: rotate(calc(var(--rotate) * 0.5)) translate(calc(var(--end-x) * 1.2), calc(var(--end-y) * 1.2));
+        opacity: 1;
+        animation-timing-function: ease;
+    }
+
+    85% {
+        transform: rotate(calc(var(--rotate) * 0.66)) translate(calc(var(--end-x)), calc(var(--end-y)));
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(calc(var(--rotate) * 1.2)) translate(calc(var(--end-x) * 0.5), calc(var(--end-y) * 0.5));
+        opacity: 1;
+    }
+}
+
+@keyframes point {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+        animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+    }
+
+    25% {
+        transform: scale(calc(var(--scale) * 0.25));
+    }
+
+    38% {
+        opacity: 1;
+    }
+
+    65% {
+        transform: scale(var(--scale));
+        opacity: 1;
+        animation-timing-function: ease;
+    }
+
+    85% {
+        transform: scale(var(--scale));
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .gooey-nav-wrapper {
+        top: auto;
+        bottom: 1rem;
+        padding: 0.4rem 0.75rem;
+    }
+
+    .gooey-nav-container nav ul {
+        gap: 1em;
+    }
+
+    .gooey-nav-container nav ul li {
+        font-size: 0.85rem;
+    }
+
+    .gooey-nav-container nav ul li a {
+        padding: 0.45em 0.85em;
+    }
+
+    .gooey-nav-container .effect.text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 400px) {
+    .gooey-nav-wrapper {
+        padding: 0.35rem 0.5rem;
+    }
+
+    .gooey-nav-container nav ul {
+        gap: 0.5em;
+    }
+
+    .gooey-nav-container nav ul li {
+        font-size: 0.8rem;
+    }
+
+    .gooey-nav-container nav ul li a {
+        padding: 0.4em 0.7em;
+    }
+}

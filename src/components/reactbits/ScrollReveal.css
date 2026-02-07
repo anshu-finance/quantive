@@ -1,0 +1,19 @@
+.scroll-reveal {
+    width: 100%;
+}
+
+.scroll-reveal-text {
+    margin: 0;
+}
+
+.scroll-word {
+    display: inline-block;
+    transition: opacity 0.4s ease-out, filter 0.4s ease-out, transform 0.4s ease-out;
+    transform: translateY(4px);
+}
+
+.scroll-word.revealed {
+    opacity: 1 !important;
+    filter: blur(0px) !important;
+    transform: translateY(0);
+}

@@ -1,0 +1,161 @@
+/* Dock - Mobile Fixed Bottom Navigation */
+.dock-outer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none;
+    padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+}
+
+.dock-panel {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: fit-content;
+    gap: 1.5rem;
+    /* Increased gap for more space */
+    border-radius: 1.25rem;
+    background-color: rgba(15, 21, 33, 0.95);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 0.5rem 1.25rem;
+    /* More horizontal padding */
+    pointer-events: auto;
+    margin-bottom: 0.5rem;
+    box-shadow:
+        0 -4px 32px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(212, 175, 55, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.dock-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background-color: rgba(26, 35, 50, 0.8);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    flex-shrink: 0;
+}
+
+.dock-item:hover,
+.dock-item:focus {
+    border-color: rgba(212, 175, 55, 0.4);
+    background-color: rgba(212, 175, 55, 0.12);
+    box-shadow:
+        0 4px 20px rgba(212, 175, 55, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.dock-item.active {
+    border-color: rgba(212, 175, 55, 0.6);
+    background-color: rgba(212, 175, 55, 0.18);
+    box-shadow:
+        0 4px 24px rgba(212, 175, 55, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.dock-item.active .dock-icon {
+    color: #D4AF37;
+}
+
+.dock-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A0A5AD;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.dock-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.dock-item:hover .dock-icon,
+.dock-item:focus .dock-icon {
+    color: #D4AF37;
+}
+
+.dock-label {
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    width: fit-content;
+    white-space: nowrap;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(122, 63, 145, 0.4);
+    background-color: rgba(6, 0, 16, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fff;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.01em;
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+    .dock-panel {
+        gap: 1.25rem;
+        padding: 0.5rem 1rem;
+        border-radius: 1.25rem;
+    }
+
+    .dock-item {
+        border-radius: 12px;
+    }
+
+    .dock-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dock-label {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.7rem;
+        top: -2.25rem;
+    }
+}
+
+/* Small phone adjustments */
+@media (max-width: 480px) {
+    .dock-panel {
+        gap: 1rem;
+        padding: 0.45rem 0.85rem;
+    }
+
+    .dock-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .dock-label {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+    .dock-outer {
+        display: none;
+    }
+}

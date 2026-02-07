@@ -1,0 +1,70 @@
+/* Simple Marquee Animation */
+.marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-content {
+    display: flex;
+    gap: 2rem;
+    animation: marquee 15s linear infinite;
+    width: max-content;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-33.333%);
+    }
+}
+
+.marquee-wrapper:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+.marquee-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A0A5AD;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.marquee-item:hover {
+    color: #D4AF37;
+    transform: scale(1.2);
+}
+
+.marquee-item svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .marquee-content {
+        gap: 1.5rem;
+    }
+
+    .marquee-item svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .marquee-content {
+        gap: 1.25rem;
+    }
+
+    .marquee-item svg {
+        width: 18px;
+        height: 18px;
+    }
+}

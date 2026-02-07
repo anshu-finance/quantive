@@ -1,0 +1,64 @@
+.star-border {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border-radius: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.star-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            var(--star-color) 45deg,
+            transparent 90deg,
+            transparent 180deg,
+            var(--star-color) 225deg,
+            transparent 270deg,
+            transparent 360deg);
+    animation: starRotate var(--star-speed) linear infinite;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+.star-border-glow {
+    display: none;
+}
+
+.star-border-inner {
+    position: relative;
+    z-index: 1;
+    background: var(--color-bg-primary);
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    letter-spacing: 0.02em;
+}
+
+.star-border:hover .star-border-inner {
+    background: var(--color-bg-secondary);
+}
+
+@keyframes starRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,6 +1,8 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import PDFViewer from './PDFViewer';
 import './ChromaGrid.css';
+
 
 export const ChromaGrid = ({
     items,
@@ -17,6 +19,9 @@ export const ChromaGrid = ({
     const setX = useRef(null);
     const setY = useRef(null);
     const pos = useRef({ x: 0, y: 0 });
+
+    // PDF Viewer state
+    const [selectedPdf, setSelectedPdf] = useState(null);
 
     const demo = [
         {
@@ -115,9 +120,13 @@ export const ChromaGrid = ({
         });
     };
 
-    const handleCardClick = url => {
-        if (url) {
-            window.open(url, '_blank', 'noopener,noreferrer');
+    const handleCardClick = (item) => {
+        // If item has pdfPath, open PDF viewer modal
+        if (item.pdfPath) {
+            setSelectedPdf(item);
+        } else if (item.url) {
+            // Fallback to external URL
+            window.open(item.url, '_blank', 'noopener,noreferrer');
         }
     };
 
@@ -147,11 +156,11 @@ export const ChromaGrid = ({
                     key={i}
                     className="chroma-card"
                     onMouseMove={handleCardMove}
-                    onClick={() => handleCardClick(c.url)}
+                    onClick={() => handleCardClick(c)}
                     style={{
                         '--card-border': c.borderColor || '#D4AF37',
                         '--card-gradient': c.gradient || 'linear-gradient(145deg, #D4AF37, #0A0E17)',
-                        cursor: c.url ? 'pointer' : 'default'
+                        cursor: (c.pdfPath || c.url) ? 'pointer' : 'default'
                     }}
                 >
                     <div className="chroma-img-wrapper">
@@ -167,6 +176,14 @@ export const ChromaGrid = ({
             ))}
             <div className="chroma-overlay" />
             <div ref={fadeRef} className="chroma-fade" />
+
+            {/* PDF Viewer Modal */}
+            <PDFViewer
+                pdfUrl={selectedPdf?.pdfPath}
+                title={selectedPdf?.title}
+                isOpen={!!selectedPdf}
+                onClose={() => setSelectedPdf(null)}
+            />
         </div>
     );
 };
